@@ -1,0 +1,37 @@
+{
+  "name": "file-utils-easy",
+  "version": "0.0.1",
+  "description": "The simplest file utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "coveralls": "cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
+    "update-modules": "npm update && npm prune --production",
+    "coverage": "npm test && npm run coveralls"
+  },
+  "keywords": [
+    "file",
+    "fs",
+    "utils",
+    "tool"
+  ],
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Eomm/file-utils-easy"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.1.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "jest": "^22.4.4",
+    "coveralls": "^3.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
