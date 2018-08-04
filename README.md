@@ -1,5 +1,7 @@
 # file-utils-easy
 
+[![Coverage Status](https://coveralls.io/repos/github/Eomm/file-utils-easy/badge.svg?branch=master)](https://coveralls.io/github/Eomm/file-utils-easy?branch=master)
+
 This is a simply file utils lib.
 
 ## Installation
