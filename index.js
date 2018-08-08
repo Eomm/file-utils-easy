@@ -55,6 +55,11 @@ function readDirectoryFiles(directory) {
 }
 
 
+/**
+ * Read the content of a file as a UTF8 string
+ * @param {string} filePath path and filename: the file to read
+ * @returns {Promise<string>} resolve with the string content of the file
+ */
 function readFile(filePath) {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -68,6 +73,11 @@ function readFile(filePath) {
 }
 
 
+/**
+ * Read the content of a file as a UTF8 string and then parse it as a JSON
+ * @param {string} filePath path and filename: the file to read
+ * @returns {Promise<object>} resolve with the JSON content of the file
+ */
 function readJsonFile(filePath) {
   return readFile(filePath).then(content => JSON.parse(content));
 }

@@ -61,3 +61,6 @@ typings/
 .coveralls.yml
 
 hello.txt
+
+**/output/*
+!.keep

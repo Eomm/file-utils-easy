@@ -20,6 +20,13 @@ fue.readDirectoryFiles('path/').then(files => doSomething(files));
 
 ```
 
+| Function | Description |
+|----------|-------------|
+| `writeToFile`         | Write a string to a file
+| `writeToFileStream`   | Pipe a stream to a file
+| `readDirectoryFiles`  | Read all the filenames of a directory
+| `readFile`            | Read the string content of a file
+| `readJsonFile`        | Read a JSON content of a file
 
 ## Test
 
