@@ -64,3 +64,5 @@ hello.txt
 
 **/output/*
 !.keep
+
+*.jpg

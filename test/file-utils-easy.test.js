@@ -67,3 +67,26 @@ describe('read tests', () => {
       .rejects.toBeDefined();
   });
 });
+
+describe('url test', () => {
+  it('save url https', () => {
+    const filePath = 'https-image.jpg';
+    const url = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
+    return expect(fue.saveUrlToFile(url, filePath))
+      .resolves.toEqual(filePath);
+  });
+
+  it('save url http', () => {
+    const filePath = 'http-image.jpg';
+    const url = 'http://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
+    return expect(fue.saveUrlToFile(url, filePath))
+      .resolves.toEqual(filePath);
+  });
+
+  it('malformed url', () => {
+    const filePath = 'error.jpg';
+    const url = 'malformed-url';
+    return expect(fue.saveUrlToFile(url, filePath))
+      .rejects.toBeDefined();
+  });
+});

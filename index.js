@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require('fs');
+const https = require('https');
+const http = require('http');
 
 /**
  * Write a string to a file
@@ -83,10 +85,33 @@ function readJsonFile(filePath) {
 }
 
 
+/**
+ * Save the content of a url to a file
+ * @param {string} url where to GET the content
+ * @param {string} filePath path and filename: the file to save
+ * @returns {Promise<string>} resolve with the filePath
+ */
+function saveUrlToFile(url, filePath) {
+  return new Promise((resolve, reject) => {
+    const outFile = fs.createWriteStream(filePath);
+    const protocol = url.startsWith('https') ? https : http;
+    protocol.get(url, (response) => {
+      response.pipe(outFile);
+      response.on('end', () => resolve(filePath));
+      response.on('error', (err) => {
+        // outFile.destroy();
+        // fs.unlinkSync(filePath);
+        reject(err);
+      });
+    });
+  });
+}
+
 module.exports = Object.freeze({
   writeToFile,
   writeToFileStream,
   readDirectoryFiles,
   readFile,
   readJsonFile,
+  saveUrlToFile,
 });
