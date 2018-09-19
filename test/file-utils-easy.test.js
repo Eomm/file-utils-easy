@@ -36,6 +36,23 @@ describe('write tests', () => {
 });
 
 
+describe('delete tests', () => {
+  it('delete file', () => {
+    const fileContent = 'Hello world';
+    const filePath = 'delete-me.txt';
+    const flow = fue.writeToFile(fileContent, filePath)
+      .then(fue.deleteFile);
+    return expect(flow).resolves.toEqual(filePath);
+  });
+
+  it('delete file inexisting', () => {
+    const filePath = 'inexisisting-file';
+    return expect(fue.deleteFile(filePath))
+      .rejects.toBeDefined();
+  });
+});
+
+
 describe('read tests', () => {
   it('file list', () => {
     const path = 'test/assets/';
@@ -86,6 +103,13 @@ describe('url test', () => {
   it('malformed url', () => {
     const filePath = 'error.jpg';
     const url = 'malformed-url';
+    return expect(fue.saveUrlToFile(url, filePath))
+      .rejects.toBeDefined();
+  });
+
+  it('inexisting url', () => {
+    const filePath = 'error.jpg';
+    const url = 'http://www.malformed.url/';
     return expect(fue.saveUrlToFile(url, filePath))
       .rejects.toBeDefined();
   });

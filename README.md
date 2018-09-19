@@ -27,6 +27,9 @@ fue.readDirectoryFiles('path/').then(files => doSomething(files));
 | `readDirectoryFiles`  | Read all the filenames of a directory
 | `readFile`            | Read the string content of a file
 | `readJsonFile`        | Read a JSON content of a file
+| `saveUrlToFile`       | GET a url and save the content to a file
+| `deleteFile`          | Delete e file from the file system
+
 
 ## Test
 

@@ -103,9 +103,29 @@ function saveUrlToFile(url, filePath) {
         // fs.unlinkSync(filePath);
         reject(err);
       });
+    })
+      .on('error', (err) => {
+        reject(err);
+      });
+  });
+}
+
+
+/**
+ * Delete a file from the file system
+ * @param {string} filePath path and filename: the file to delete
+ */
+function deleteFile(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(filePath);
     });
   });
 }
+
 
 module.exports = Object.freeze({
   writeToFile,
@@ -114,4 +134,5 @@ module.exports = Object.freeze({
   readFile,
   readJsonFile,
   saveUrlToFile,
+  deleteFile,
 });
