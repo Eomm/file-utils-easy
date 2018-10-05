@@ -70,9 +70,16 @@ function readDirectoryFiles(directory) {
         return;
       }
 
-      Promise.all(files.map(f => readFileStats(path.join(directory, f))))
-        .then(fstats => fstats.filter(fstat => fstat.isFile()))
-        .then(fileList => resolve(fileList))
+      const isFile = fileName => readFileStats(path.join(directory, fileName))
+        .then((fstat) => {
+          if (fstat.isFile()) {
+            return fileName;
+          }
+          return null;
+        });
+
+      Promise.all(files.map(isFile))
+        .then(fileList => resolve(fileList.filter(f => f !== null)))
         .catch(reject);
     });
   });
@@ -136,6 +143,7 @@ function saveUrlToFile(url, filePath) {
 /**
  * Delete a file from the file system
  * @param {string} filePath path and filename: the file to delete
+ * @returns {Promise<string>} resolve with the filePath deleted
  */
 function deleteFile(filePath) {
   return new Promise((resolve, reject) => {
@@ -149,6 +157,21 @@ function deleteFile(filePath) {
 }
 
 
+/**
+ * Delete all the files in a directory, applying an optional filter
+ * @param {string} directory path of the directory to clean
+ * @returns {Promise<array>} resolve with all the files deleted succesfully
+ */
+function deleteDirectoryFiles(directory, filter = () => true) {
+  return readDirectoryFiles(directory)
+    .then((files) => {
+      const quietDelete = f => deleteFile(path.join(directory, f)).catch(() => null);
+      const deletingFiles = files.filter(filter).map(quietDelete);
+      return Promise.all(deletingFiles).then(deleted => deleted.filter(d => d !== null));
+    });
+}
+
+
 module.exports = Object.freeze({
   writeToFile,
   writeToFileStream,
@@ -157,5 +180,6 @@ module.exports = Object.freeze({
   readJsonFile,
   saveUrlToFile,
   deleteFile,
+  deleteDirectoryFiles,
   readFileStats,
 });

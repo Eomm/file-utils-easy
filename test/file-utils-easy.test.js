@@ -50,6 +50,28 @@ describe('delete tests', () => {
     return expect(fue.deleteFile(filePath))
       .rejects.toBeDefined();
   });
+
+  it('delete directory files none', () => {
+    const path = 'test/assets/noRead';
+    return expect(fue.deleteDirectoryFiles(path))
+      .resolves.toHaveLength(0);
+  });
+
+  it('delete directory files', () => {
+    const path = 'test/assets/noRead/also';
+    return expect(fue.writeToFile('', `${path}/delete.me`)
+      .then(() => fue.writeToFile('', `${path}/also.me`))
+      .then(() => fue.deleteDirectoryFiles(path)))
+      .resolves.toHaveLength(2);
+  });
+
+  it('delete directory files with filter', () => {
+    const path = 'test/assets/noRead/also/notThis';
+    return expect(fue.writeToFile('', `${path}/delete.me`)
+      .then(() => fue.writeToFile('', `${path}/not.me`))
+      .then(() => fue.deleteDirectoryFiles(path, fileName => !fileName.startsWith('not'))))
+      .resolves.toHaveLength(1);
+  });
 });
 
 
