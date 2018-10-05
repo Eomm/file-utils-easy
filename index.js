@@ -3,6 +3,7 @@
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
+const path = require('path');
 
 /**
  * Write a string to a file
@@ -40,7 +41,24 @@ function writeToFileStream(fileStream, filePath) {
 
 
 /**
- * List the file names of a content of a directory
+ * Read the metadata of the file
+ * @param {string} filePath path and filename: the file to read
+ */
+function readFileStats(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.stat(filePath, (err, fstat) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(fstat);
+    });
+  });
+}
+
+
+/**
+ * List the file names of a content of a directory, ignoring directories
  * @param {string} directory path of the directory to read
  * @returns {Promise<array>} names of the files in the input directory
  */
@@ -51,7 +69,11 @@ function readDirectoryFiles(directory) {
         reject(err);
         return;
       }
-      resolve(files);
+
+      Promise.all(files.map(f => readFileStats(path.join(directory, f))))
+        .then(fstats => fstats.filter(fstat => fstat.isFile()))
+        .then(fileList => resolve(fileList))
+        .catch(reject);
     });
   });
 }
@@ -135,4 +157,5 @@ module.exports = Object.freeze({
   readJsonFile,
   saveUrlToFile,
   deleteFile,
+  readFileStats,
 });

@@ -1,6 +1,6 @@
 {
   "name": "file-utils-easy",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "The simplest file utils",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,9 @@
     "utils",
     "tool"
   ],
+  "engines": {
+    "node": ">=7.0.0"
+  },
   "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
   "license": "MIT",
   "repository": {
