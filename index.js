@@ -16,9 +16,9 @@ function writeToFile(fileContent, filePath) {
     fs.writeFile(filePath, fileContent, 'utf8', (err) => {
       if (err) {
         reject(err);
-      } else {
-        resolve(filePath);
+        return;
       }
+      resolve(filePath);
     });
   });
 }
@@ -150,6 +150,7 @@ function deleteFile(filePath) {
     fs.unlink(filePath, (err) => {
       if (err) {
         reject(err);
+        return;
       }
       resolve(filePath);
     });
@@ -172,6 +173,61 @@ function deleteDirectoryFiles(directory, filter = () => true) {
 }
 
 
+/**
+ * Rename a file to another path
+ * @param {string} from origin path and filename
+ * @param {string} to destination path and filename
+ * @returns {Promise<string>} resolve with the destination filePath
+ */
+function renameFile(from, to) {
+  return new Promise((resolve, reject) => {
+    fs.rename(from, to, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(to);
+    });
+  });
+}
+
+
+/**
+ * Copy a file to another path
+ * @param {string} from origin path and filename
+ * @param {string} to destination path and filename
+ * @returns {Promise<string>} resolve with the destination filePath
+ */
+function copyFile(from, to) {
+  return new Promise((resolve, reject) => {
+    fs.copyFile(from, to, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(to);
+    });
+  });
+}
+
+
+/**
+ * Check if a file exists
+ * @param {string} filePath path and filename: the file to control
+ * @returns {Promise<string>} resolve with the filePath that exists
+ */
+function existFile(filePath, mode = fs.constants.W_OK) {
+  return new Promise((resolve, reject) => {
+    fs.access(filePath, mode, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(filePath);
+    });
+  });
+}
+
 module.exports = Object.freeze({
   writeToFile,
   writeToFileStream,
@@ -182,4 +238,7 @@ module.exports = Object.freeze({
   deleteFile,
   deleteDirectoryFiles,
   readFileStats,
+  existFile,
+  renameFile,
+  copyFile,
 });

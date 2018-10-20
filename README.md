@@ -25,12 +25,15 @@ fue.readDirectoryFiles('path/').then(files => doSomething(files));
 | `writeToFile`         | Write a string to a file
 | `writeToFileStream`   | Pipe a stream to a file
 | `readDirectoryFiles`  | Read all the filenames of a directory
+| `existFile`           | Check if a file exists
 | `readFile`            | Read the string content of a file
 | `readFileStats`       | Read the file metadata
 | `readJsonFile`        | Read a JSON content of a file
 | `saveUrlToFile`       | GET a url and save the content to a file
 | `deleteFile`          | Delete a file from the file system
 | `deleteDirectoryFiles`| Delete all the files in a directory applying an optional filter on file name
+| `renameFile`          | Rename a file
+| `copyFile`            | Copy a file to a destination
 
 
 ## Test

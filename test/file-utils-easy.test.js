@@ -36,13 +36,56 @@ describe('write tests', () => {
 });
 
 
+describe('alter tests', () => {
+  it('rename file to existing path', () => {
+    const fileContent = 'Hello world';
+    const from = 'test/assets/alter/from.txt';
+    const to = 'test/output/to.txt';
+
+    const flow = fue.writeToFile(fileContent, from)
+      .then(saved => fue.renameFile(saved, to))
+      .then(fue.existFile);
+    return expect(flow).resolves.toEqual(to);
+  });
+
+  it('rename file to not existing path', () => {
+    const from = 'test/assets/alter/from-constant.txt';
+    const to = 'test/output/not-exist/to.txt';
+
+    const flow = fue.renameFile(from, to);
+    return expect(flow).rejects.toBeDefined();
+  });
+
+  it('copy file with rename to existing path', () => {
+    const from = 'test/assets/alter/copy.txt';
+    const to = 'test/output/copied.txt';
+
+    const flow = fue.copyFile(from, to)
+      .then(fue.existFile);
+    return expect(flow).resolves.toEqual(to);
+  });
+
+  it('copy file to not existing path', () => {
+    const from = 'test/assets/alter/copy.txt';
+    const to = 'test/output/not-exist/copied.txt';
+
+    const flow = fue.copyFile(from, to);
+    return expect(flow).rejects.toBeDefined();
+  });
+});
+
 describe('delete tests', () => {
-  it('delete file', () => {
+  it('delete existing file', () => {
     const fileContent = 'Hello world';
     const filePath = 'delete-me.txt';
     const flow = fue.writeToFile(fileContent, filePath)
+      .then(fue.existFile)
       .then(fue.deleteFile);
-    return expect(flow).resolves.toEqual(filePath);
+    return expect(flow).resolves.toEqual(filePath)
+      .then(() => {
+        const exist = fue.existFile(filePath);
+        expect(exist).rejects.toBeDefined();
+      });
   });
 
   it('delete file inexisting', () => {
