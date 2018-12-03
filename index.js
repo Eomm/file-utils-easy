@@ -23,6 +23,24 @@ function writeToFile(fileContent, filePath) {
   });
 }
 
+/**
+ * Append a string to a file, if the file doesn't exist it is created
+ * @param {string} fileContent the payload of the file
+ * @param {string} filePath path and filename: where store the file
+ * @returns {Promise<string>} resolve with the filePath received in input
+ */
+function appendToFile(fileContent, filePath) {
+  return new Promise((resolve, reject) => {
+    fs.appendFile(filePath, fileContent, 'utf8', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(filePath);
+      }
+    });
+  });
+}
+
 
 /**
  * Write a stream to a file
@@ -230,6 +248,7 @@ function existFile(filePath, mode = fs.constants.W_OK) {
 
 module.exports = Object.freeze({
   writeToFile,
+  appendToFile,
   writeToFileStream,
   readDirectoryFiles,
   readFile,
