@@ -35,6 +35,32 @@ describe('write tests', () => {
   });
 });
 
+describe('append tests', () => {
+  it('create with append relative', () => {
+    const fileContent = 'Hello world';
+    const filePath = 'append.txt';
+    if (fue.existFile(filePath)) {
+      fue.deleteFile(filePath);
+    }
+    return expect(fue.appendToFile(fileContent, filePath)).resolves.toEqual(filePath);
+  });
+  
+  it('append relative', () => {
+    const fileContent = 'Hello world';
+    const filePath = 'append.txt';
+    expect(fue.writeToFile(fileContent, filePath)).resolves.toEqual(filePath);
+    const addingContent = ' - this is some added text';
+    expect(fue.appendToFile(addingContent, filePath)).resolves.toEqual(filePath);
+    return expect(fue.readFile(filePath)).resolves.toEqual(fileContent + addingContent);
+  });
+
+  it('append in not existing path', () => {
+    const fileContent = 'Hello world';
+    const filePath = 'output/hello.txt';
+    return expect(fue.appendToFile(fileContent, filePath))
+      .rejects.toBeDefined();
+  });
+});
 
 describe('alter tests', () => {
   it('rename file to existing path', () => {

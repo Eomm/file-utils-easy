@@ -24,6 +24,7 @@ fue.readDirectoryFiles('path/').then(files => doSomething(files));
 |----------|-------------|
 | `writeToFile`         | Write a string to a file
 | `writeToFileStream`   | Pipe a stream to a file
+| `appendToFile`        | Append a string to a file if already exists, it creates it otherwise
 | `readDirectoryFiles`  | Read all the filenames of a directory
 | `existFile`           | Check if a file exists
 | `readFile`            | Read the string content of a file
