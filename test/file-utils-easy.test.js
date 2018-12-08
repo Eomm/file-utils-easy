@@ -36,11 +36,11 @@ describe('write tests', () => {
 });
 
 describe('append tests', () => {
-  it('create with append relative', () => {
+  it('create with append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'append.txt';
-    if (fue.existFile(filePath)) {
-      fue.deleteFile(filePath);
+    if (await fue.existFile(filePath)) {
+      await fue.deleteFile(filePath);
     }
     return expect(fue.appendToFile(fileContent, filePath)).resolves.toEqual(filePath);
   });
@@ -56,7 +56,7 @@ describe('append tests', () => {
 
   it('append in not existing path', () => {
     const fileContent = 'Hello world';
-    const filePath = 'output/hello.txt';
+    const filePath = 'output/not-exist.txt';
     return expect(fue.appendToFile(fileContent, filePath))
       .rejects.toBeDefined();
   });
