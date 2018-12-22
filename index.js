@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * @module file-utils-easy
+ * @typicalname fue
+ */
+
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
@@ -28,7 +33,7 @@ function writeToFile(fileContent, filePath) {
  * Write a stream to a file
  * @param {stream} fileStream the stream payload
  * @param {string} filePath path and filename: where store the file
- * @returns {Promise} resolve with the filePath received in input
+ * @returns {Promise} resolve with the filePath when the stream finish
  */
 function writeToFileStream(fileStream, filePath) {
   return new Promise((resolve, reject) => {
@@ -43,6 +48,8 @@ function writeToFileStream(fileStream, filePath) {
 /**
  * Read the metadata of the file
  * @param {string} filePath path and filename: the file to read
+ * @return {Promise<fs.Stats>} a node fs.Stats that provides information about a file
+ * @see https://nodejs.org/api/fs.html#fs_class_fs_stats
  */
 function readFileStats(filePath) {
   return new Promise((resolve, reject) => {
@@ -58,9 +65,9 @@ function readFileStats(filePath) {
 
 
 /**
- * List the file names of a content of a directory, ignoring directories
+ * List the files names of a directory, ignoring directories
  * @param {string} directory path of the directory to read
- * @returns {Promise<array>} names of the files in the input directory
+ * @returns {Promise<array>} strings names of the files in the input directory
  */
 function readDirectoryFiles(directory) {
   return new Promise((resolve, reject) => {
@@ -87,13 +94,14 @@ function readDirectoryFiles(directory) {
 
 
 /**
- * Read the content of a file as a UTF8 string
+ * Read the content of a file
  * @param {string} filePath path and filename: the file to read
+ * @param {string} [encoding='utf8'] the encoding file
  * @returns {Promise<string>} resolve with the string content of the file
  */
-function readFile(filePath) {
+function readFile(filePath, encoding = 'utf8') {
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', (err, data) => {
+    fs.readFile(filePath, encoding, (err, data) => {
       if (err) {
         reject(err);
         return;
@@ -116,9 +124,9 @@ function readJsonFile(filePath) {
 
 /**
  * Save the content of a url to a file
- * @param {string} url where to GET the content
- * @param {string} filePath path and filename: the file to save
- * @returns {Promise<string>} resolve with the filePath
+ * @param {string} url where will be done an HTTP/GET to get the content
+ * @param {string} filePath path and filename where store the output of url
+ * @returns {Promise<string>} resolve with the filePath saved
  */
 function saveUrlToFile(url, filePath) {
   return new Promise((resolve, reject) => {
@@ -215,6 +223,7 @@ function copyFile(from, to) {
  * Check if a file exists
  * @param {string} filePath path and filename: the file to control
  * @returns {Promise<string>} resolve with the filePath that exists
+ * @throws {error} if the file doesn't exist
  */
 function existFile(filePath, mode = fs.constants.W_OK) {
   return new Promise((resolve, reject) => {

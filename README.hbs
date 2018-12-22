@@ -1,0 +1,53 @@
+# file-utils-easy
+
+[![Coverage Status](https://coveralls.io/repos/github/Eomm/file-utils-easy/badge.svg?branch=master)](https://coveralls.io/github/Eomm/file-utils-easy?branch=master)
+
+This is a simply file utils lib.
+
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [API](#API)
+* [Test](#Test)
+* [License](#License)
+
+
+## Installation
+
+```
+npm install file-utils-easy
+```
+
+
+## Usage
+
+```js
+const fue = require('file-utils-easy');
+
+fue.readDirectoryFiles('path/')
+  .then(files => doSomething(files))
+  .catch(err => doSomethingElse())
+
+```
+
+
+## API
+
+{{#module name="file-utils-easy"}}
+{{>body~}}
+{{>member-index~}}
+{{>separator~}}
+{{>members~}}
+{{/module}}
+
+
+## Test
+
+For run the tests simply execute:
+```
+npm test
+```
+
+
+## License
+
+Copyright [Manuel Spigolon](https://github.com/Eomm), Licensed under [MIT](./LICENSE).
