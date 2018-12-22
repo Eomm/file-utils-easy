@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * @module file-utils-easy
+ * @typicalname fue
+ */
+
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
