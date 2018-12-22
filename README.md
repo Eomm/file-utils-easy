@@ -36,9 +36,9 @@ fue.readDirectoryFiles('path/')
 * [file-utils-easy](#module_file-utils-easy)
     * [~writeToFile(fileContent, filePath)](#module_file-utils-easy..writeToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~writeToFileStream(fileStream, filePath)](#module_file-utils-easy..writeToFileStream) ⇒ <code>Promise</code>
-    * [~readFileStats(filePath)](#module_file-utils-easy..readFileStats)
+    * [~readFileStats(filePath)](#module_file-utils-easy..readFileStats) ⇒ <code>Promise.&lt;fs.Stats&gt;</code>
     * [~readDirectoryFiles(directory)](#module_file-utils-easy..readDirectoryFiles) ⇒ <code>Promise.&lt;array&gt;</code>
-    * [~readFile(filePath)](#module_file-utils-easy..readFile) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [~readFile(filePath, [encoding])](#module_file-utils-easy..readFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~readJsonFile(filePath)](#module_file-utils-easy..readJsonFile) ⇒ <code>Promise.&lt;object&gt;</code>
     * [~saveUrlToFile(url, filePath)](#module_file-utils-easy..saveUrlToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~deleteFile(filePath)](#module_file-utils-easy..deleteFile) ⇒ <code>Promise.&lt;string&gt;</code>
@@ -66,7 +66,7 @@ Write a string to a file
 Write a stream to a file
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
-**Returns**: <code>Promise</code> - resolve with the filePath received in input  
+**Returns**: <code>Promise</code> - resolve with the filePath when the stream finish  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -75,10 +75,12 @@ Write a stream to a file
 
 <a name="module_file-utils-easy..readFileStats"></a>
 
-### file-utils-easy~readFileStats(filePath)
+### file-utils-easy~readFileStats(filePath) ⇒ <code>Promise.&lt;fs.Stats&gt;</code>
 Read the metadata of the file
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
+**Returns**: <code>Promise.&lt;fs.Stats&gt;</code> - a node fs.Stats that provides information about a file  
+**See**: https://nodejs.org/api/fs.html#fs_class_fs_stats  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -87,10 +89,10 @@ Read the metadata of the file
 <a name="module_file-utils-easy..readDirectoryFiles"></a>
 
 ### file-utils-easy~readDirectoryFiles(directory) ⇒ <code>Promise.&lt;array&gt;</code>
-List the file names of a content of a directory, ignoring directories
+List the files names of a directory, ignoring directories
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
-**Returns**: <code>Promise.&lt;array&gt;</code> - names of the files in the input directory  
+**Returns**: <code>Promise.&lt;array&gt;</code> - strings names of the files in the input directory  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -98,15 +100,16 @@ List the file names of a content of a directory, ignoring directories
 
 <a name="module_file-utils-easy..readFile"></a>
 
-### file-utils-easy~readFile(filePath) ⇒ <code>Promise.&lt;string&gt;</code>
-Read the content of a file as a UTF8 string
+### file-utils-easy~readFile(filePath, [encoding]) ⇒ <code>Promise.&lt;string&gt;</code>
+Read the content of a file
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the string content of the file  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| filePath | <code>string</code> | path and filename: the file to read |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| filePath | <code>string</code> |  | path and filename: the file to read |
+| [encoding] | <code>string</code> | <code>&quot;&#x27;utf8&#x27;&quot;</code> | the encoding file |
 
 <a name="module_file-utils-easy..readJsonFile"></a>
 
@@ -126,12 +129,12 @@ Read the content of a file as a UTF8 string and then parse it as a JSON
 Save the content of a url to a file
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
-**Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the filePath  
+**Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the filePath saved  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | where to GET the content |
-| filePath | <code>string</code> | path and filename: the file to save |
+| url | <code>string</code> | where will be done an HTTP/GET to get the content |
+| filePath | <code>string</code> | path and filename where store the output of url |
 
 <a name="module_file-utils-easy..deleteFile"></a>
 
@@ -190,6 +193,10 @@ Check if a file exists
 
 **Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the filePath that exists  
+**Throws**:
+
+- <code>error</code> if the file doesn't exist
+
 
 | Param | Type | Description |
 | --- | --- | --- |
