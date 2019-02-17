@@ -29,29 +29,13 @@ fue.readDirectoryFiles('path/')
 
 ```
 
-| Function | Description |
-|----------|-------------|
-| `writeToFile`         | Write a string to a file. If the path doesn't exist, an error will be thrown. If the file doesn't exist, it will be created. If the file already exists it will be overwritten
-| `writeToFileStream`   | Pipe a stream to a file
-| `appendToFile`        | Append a string to a file if already exists, it creates it otherwise. If the path doesn't exist, an error will be thrown.
-| `readDirectoryFiles`  | Read all the filenames of a directory
-| `existFile`           | Check if a file exists
-| `readFile`            | Read the string content of a file
-| `readFileStats`       | Read the file metadata
-| `readJsonFile`        | Read a JSON content of a file
-| `saveUrlToFile`       | GET a url and save the content to a file
-| `deleteFile`          | Delete a file from the file system
-| `deleteDirectoryFiles`| Delete all the files in a directory applying an optional filter on file name
-| `renameFile`          | Rename a file
-| `copyFile`            | Copy a file to a destination
-=======
-
 ## API
 
 
 * [file-utils-easy](#module_file-utils-easy)
     * [~writeToFile(fileContent, filePath)](#module_file-utils-easy..writeToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~writeToFileStream(fileStream, filePath)](#module_file-utils-easy..writeToFileStream) ⇒ <code>Promise</code>
+    * [~appendToFile(fileContent, filePath)](#module_file-utils-easy..appendToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~readFileStats(filePath)](#module_file-utils-easy..readFileStats) ⇒ <code>Promise.&lt;fs.Stats&gt;</code>
     * [~readDirectoryFiles(directory)](#module_file-utils-easy..readDirectoryFiles) ⇒ <code>Promise.&lt;array&gt;</code>
     * [~readFile(filePath, [encoding])](#module_file-utils-easy..readFile) ⇒ <code>Promise.&lt;string&gt;</code>
@@ -87,6 +71,19 @@ Write a stream to a file
 | Param | Type | Description |
 | --- | --- | --- |
 | fileStream | <code>stream</code> | the stream payload |
+| filePath | <code>string</code> | path and filename: where store the file |
+
+<a name="module_file-utils-easy..appendToFile"></a>
+
+### file-utils-easy~appendToFile(fileContent, filePath) ⇒ <code>Promise.&lt;string&gt;</code>
+Append a string to a file
+
+**Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the filePath received in input  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fileContent | <code>string</code> | the payload of the file |
 | filePath | <code>string</code> | path and filename: where store the file |
 
 <a name="module_file-utils-easy..readFileStats"></a>
