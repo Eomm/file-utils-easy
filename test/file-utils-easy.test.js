@@ -38,7 +38,7 @@ describe('write tests', () => {
 describe('append tests', () => {
   it('create with append relative', async () => {
     const fileContent = 'Hello world';
-    const filePath = 'append.txt';
+    const filePath = 'test/assets/append.txt';
     if (await fue.existFile(filePath)) {
       await fue.deleteFile(filePath);
     }
@@ -47,7 +47,7 @@ describe('append tests', () => {
   
   it('append relative', () => {
     const fileContent = 'Hello world';
-    const filePath = 'append.txt';
+    const filePath = 'test/assets/append.txt';
     expect(fue.writeToFile(fileContent, filePath)).resolves.toEqual(filePath);
     const addingContent = ' - this is some added text';
     expect(fue.appendToFile(addingContent, filePath)).resolves.toEqual(filePath);
@@ -143,12 +143,11 @@ describe('delete tests', () => {
   });
 });
 
-
 describe('read tests', () => {
   it('file list', () => {
     const path = 'test/assets/';
     return expect(fue.readDirectoryFiles(path))
-      .resolves.toHaveLength(3);
+      .resolves.toHaveLength(4);
   });
 
   it('file list not existing path', () => {

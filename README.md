@@ -22,9 +22,9 @@ fue.readDirectoryFiles('path/').then(files => doSomething(files));
 
 | Function | Description |
 |----------|-------------|
-| `writeToFile`         | Write a string to a file
+| `writeToFile`         | Write a string to a file. If the path doesn't exist, an error will be thrown. If the file doesn't exist, it will be created. If the file already exists it will be overwritten
 | `writeToFileStream`   | Pipe a stream to a file
-| `appendToFile`        | Append a string to a file if already exists, it creates it otherwise
+| `appendToFile`        | Append a string to a file if already exists, it creates it otherwise. If the path doesn't exist, an error will be thrown.
 | `readDirectoryFiles`  | Read all the filenames of a directory
 | `existFile`           | Check if a file exists
 | `readFile`            | Read the string content of a file
