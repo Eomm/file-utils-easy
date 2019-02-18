@@ -45,9 +45,12 @@ describe('append tests', () => {
     return expect(fue.appendToFile(fileContent, filePath)).resolves.toEqual(filePath);
   });
   
-  it('append relative', () => {
+  it('append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'test/assets/append.txt';
+    if (await fue.existFile(filePath)) {
+      await fue.deleteFile(filePath);
+    }
     expect(fue.writeToFile(fileContent, filePath)).resolves.toEqual(filePath);
     const addingContent = ' - this is some added text';
     expect(fue.appendToFile(addingContent, filePath)).resolves.toEqual(filePath);
