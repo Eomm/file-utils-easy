@@ -34,7 +34,8 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^21.27.2",
     "jest": "^22.4.4",
-    "jsdoc-to-markdown": "^4.0.1"
+    "jsdoc-to-markdown": "^4.0.1",
+    "pre-commit": "^1.2.2"
   },
   "jest": {
     "testEnvironment": "node"
