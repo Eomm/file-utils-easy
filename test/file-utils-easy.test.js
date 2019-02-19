@@ -35,25 +35,25 @@ describe('write tests', () => {
   });
 });
 
-describe('append tests', () => {
+describe('append tests', () => {  
   it('create with append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'test/assets/append.txt';
-    if (await fue.existFile(filePath)) {
+    try {
       await fue.deleteFile(filePath);
-    }
+    } catch (err) { }
     return expect(fue.appendToFile(fileContent, filePath)).resolves.toEqual(filePath);
   });
   
   it('append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'test/assets/append.txt';
-    if (await fue.existFile(filePath)) {
-      await fue.deleteFile(filePath);
-    }
-    expect(fue.writeToFile(fileContent, filePath)).resolves.toEqual(filePath);
     const addingContent = ' - this is some added text';
-    expect(fue.appendToFile(addingContent, filePath)).resolves.toEqual(filePath);
+    try {
+      await fue.deleteFile(filePath);
+    } catch (err) { }
+    const res = await fue.writeToFile(fileContent, filePath).then(fp => fue.appendToFile(addingContent, fp));
+    expect(res).toEqual(filePath);
     return expect(fue.readFile(filePath)).resolves.toEqual(fileContent + addingContent);
   });
 
