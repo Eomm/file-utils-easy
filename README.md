@@ -29,13 +29,13 @@ fue.readDirectoryFiles('path/')
 
 ```
 
-
 ## API
 
 
 * [file-utils-easy](#module_file-utils-easy)
     * [~writeToFile(fileContent, filePath)](#module_file-utils-easy..writeToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~writeToFileStream(fileStream, filePath)](#module_file-utils-easy..writeToFileStream) ⇒ <code>Promise</code>
+    * [~appendToFile(fileContent, filePath)](#module_file-utils-easy..appendToFile) ⇒ <code>Promise.&lt;string&gt;</code>
     * [~readFileStats(filePath)](#module_file-utils-easy..readFileStats) ⇒ <code>Promise.&lt;fs.Stats&gt;</code>
     * [~readDirectoryFiles(directory)](#module_file-utils-easy..readDirectoryFiles) ⇒ <code>Promise.&lt;array&gt;</code>
     * [~readFile(filePath, [encoding])](#module_file-utils-easy..readFile) ⇒ <code>Promise.&lt;string&gt;</code>
@@ -71,6 +71,19 @@ Write a stream to a file
 | Param | Type | Description |
 | --- | --- | --- |
 | fileStream | <code>stream</code> | the stream payload |
+| filePath | <code>string</code> | path and filename: where store the file |
+
+<a name="module_file-utils-easy..appendToFile"></a>
+
+### file-utils-easy~appendToFile(fileContent, filePath) ⇒ <code>Promise.&lt;string&gt;</code>
+Append a string to a file
+
+**Kind**: inner method of [<code>file-utils-easy</code>](#module_file-utils-easy)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - resolve with the filePath received in input  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fileContent | <code>string</code> | the payload of the file |
 | filePath | <code>string</code> | path and filename: where store the file |
 
 <a name="module_file-utils-easy..readFileStats"></a>
@@ -201,7 +214,6 @@ Check if a file exists
 | Param | Type | Description |
 | --- | --- | --- |
 | filePath | <code>string</code> | path and filename: the file to control |
-
 
 
 ## Test
