@@ -35,7 +35,7 @@ describe('write tests', () => {
   });
 });
 
-describe('append tests', () => {  
+describe('append tests', () => {
   it('create with append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'test/assets/append.txt';
@@ -44,7 +44,7 @@ describe('append tests', () => {
     } catch (err) { }
     return expect(fue.appendToFile(fileContent, filePath)).resolves.toEqual(filePath);
   });
-  
+
   it('append relative', async () => {
     const fileContent = 'Hello world';
     const filePath = 'test/assets/append.txt';
