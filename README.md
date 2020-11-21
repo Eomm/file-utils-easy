@@ -17,6 +17,8 @@ This is a simply file utils lib.
 npm install file-utils-easy
 ```
 
+WARNING: this package has been deprecated, upgrade your Node.js version and use default [`fs`](https://nodejs.org/api/fs.html#fs_promise_example) module instead.
+
 
 ## Usage
 
